@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  mail:
+    image: tvial/docker-mailserver:latest
+    # build: .
+    hostname: mail
+    domainname: example.com
+    container_name: mail
+    restart: unless-stopped
+    ports:
+    - "25:25"
+    - "143:143"
+    - "587:587"
+    - "993:993"
+    volumes:
+    - /opt/example-mail:/var/mail
+    - ./config:/tmp/docker-mailserver/
+    - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+    - SSL_TYPE=letsencrypt
+    - TLS_LEVEL=intermediate
+    - DOCKER_CONFIG_VERSION=2
+#volumes:
+#  maildata:
+#    driver: local
