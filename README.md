@@ -49,6 +49,10 @@ Docker is not
 
 Shows running containers. Add `-a` to see stopped containers.
 
+### `docker inspect`
+
+Outputs info on a running container
+
 ### `docker rm`
 
 Removes stopped containers. Add `-f` to "force" remove a container.
@@ -69,6 +73,8 @@ Shows docker images downloaded
 
 Removes downloaded docker images
 
+## Activity
+
 ### `docker build`
 
     $ cd /path/to/repo/repo-example
@@ -82,7 +88,17 @@ Some variations
     $ docker run --name example -p 9090:8080 -d repo-example:latest
     $ docker run -p 9090:8080 --rm repo-example:latest
 
-## Activity
+YOUR ACTIVITY: Change app.js and rebuild. Notice which layers are rebuilt. Visit http://localhost:9090 to see your craftsmanship.
+
+### Command line tools
+
+#### Turn a web page into a PDF
+
+    $ mkdir ~/converted
+    $ cd ~/converted
+    $ docker run --rm -v /$(pwd):/converted/ arachnysdocker/athenapdf athenapdf https://xkcd.com/327/
+
+
 
 ### Local pgadmin4
 
@@ -126,6 +142,14 @@ https://github.com/itzg/docker-minecraft-server
 ### `docker network`
 
     $ docker network help
+
+## Docker at ADD
+
+### Athena
+
+    docker run --name nginx-proxy --restart=unless-stopped -e "DEFAULT_HOST=athena.add123.com" -d -p 8181:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+    docker run --name athenapdf-service-1 -e "VIRTUAL_HOST=athena.add123.com" -e "VIRTUAL_PORT=8080" -d --restart unless-stopped arachnysdocker/athenapdf-service:2.15.0
+    docker run --name athenapdf-service-2 -e "VIRTUAL_HOST=athena.add123.com" -e "VIRTUAL_PORT=8080" -d --restart unless-stopped arachnysdocker/athenapdf-service:2.15.0
 
 ## docker-compose
 
