@@ -37,6 +37,7 @@ Docker is not
 
 #### Useful command line params
 
+    --name    name your docker container
     -v        mount volume
     -p        open a port
     -e        environment vars
@@ -78,7 +79,7 @@ Removes downloaded docker images
 ### `docker build`
 
     $ cd /path/to/repo/repo-example
-    $ docker build --tag repo-exmaple:latest .
+    $ docker build --tag repo-example:latest .
     $ docker run -p 9090:8080 repo-example:latest
     ...
     $ docker rm $(docker ps -a -q -f status=exited)
