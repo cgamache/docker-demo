@@ -98,7 +98,12 @@ YOUR ACTIVITY: Change app.js and rebuild. Notice which layers are rebuilt. Visit
     $ cd ~/converted
     $ docker run --rm -v /$(pwd):/converted/ arachnysdocker/athenapdf athenapdf https://xkcd.com/327/
 
+#### Make your own cli tools
 
+    $ cd /path/to/pig-latin
+    $ docker build --tag pig-latin:latest .
+    $ alias piglatin='docker run --rm -i pig-latin:latest'
+    $ echo -n "Pig latin is fun" | piglatin
 
 ### Local pgadmin4
 
@@ -142,6 +147,29 @@ https://github.com/itzg/docker-minecraft-server
 ### `docker network`
 
     $ docker network help
+    $ docker network ls
+    $ docker network create --driver bridge alpine-net
+    $ docker network ls
+    $ docker network inspect alpine-net
+    $ docker run -dit --name alpine1 --network alpine-net alpine ash
+    $ docker run -dit --name alpine2 --network alpine-net alpine ash
+    $ docker run -dit --name alpine3 alpine ash
+    $ docker run -dit --name alpine4 --network alpine-net alpine ash
+    $ docker network connect bridge alpine4
+    $ docker container ls
+    $ docker network inspect bridge
+    $ docker network inspect alpine-net
+    $ docker exec -it alpine1 ash
+        # ping -c 2 alpine2
+        # ping -c 2 alpine4
+        # ping -c 2 alpine3
+
+Try to attach to and ping the other hosts from alpine4 (Hint: alpine3 is only accessible by its IP)
+
+Cleanup:
+
+    $ docker rm -f alpine1 alpine2 alpine3 alpine4
+    $ docker network rm alpine-net
 
 ## Docker at ADD
 
